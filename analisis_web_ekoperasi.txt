@@ -1,0 +1,190 @@
+======================================================
+   ANALISIS APLIKASI WEB E-KOPERASI SEKOLAH
+======================================================
+
+
+1. FITUR UTAMA (5 FITUR)
+------------------------------------------------------
+
+No | Fitur                                      | Deskripsi
+---|--------------------------------------------|--------------------------------------------------
+1  | Login & Autentikasi                        | Sistem login dengan username dan password untuk
+   |                                            | mengakses halaman utama. Terdapat proteksi routing
+   |                                            | (redirect ke login.html jika belum login).
+   |                                            |
+2  | Katalog Produk dengan Pencarian & Filter   | Menampilkan daftar produk koperasi (seragam,
+   | Kategori                                   | pramuka, atribut) dalam grid. Pengguna bisa
+   |                                            | mencari produk berdasarkan nama dan memfilter
+   |                                            | berdasarkan kategori (Semua, Seragam, Pramuka,
+   |                                            | Atribut).
+   |                                            |
+3  | Keranjang Belanja (Cart) dengan Pilihan    | Pengguna dapat memilih ukuran produk (S, M, L,
+   | Ukuran                                     | XL), menambah produk ke keranjang, mengatur
+   |                                            | jumlah (qty), melihat rincian di sidebar
+   |                                            | keranjang, dan menghapus item dari keranjang.
+   |                                            |
+4  | Checkout & Pembayaran via WhatsApp         | Proses pembayaran yang menghasilkan nomor invoice
+   |                                            | otomatis, menampilkan rincian pesanan (termasuk
+   |                                            | ukuran) dan total tagihan, lalu mengirim
+   |                                            | konfirmasi pembayaran ke WhatsApp koperasi sekolah.
+   |                                            |
+5  | Riwayat Pembelian                          | Menyimpan histori semua transaksi yang telah
+   |                                            | dilakukan selama sesi, lengkap dengan nomor
+   |                                            | invoice, tanggal, daftar item beserta ukuran,
+   |                                            | dan total pembayaran.
+
+
+======================================================
+2. PENGGUNAAN APLIKASI (2 CONTOH)
+======================================================
+
+Penggunaan 1: Siswa Membeli Seragam Sekolah
+------------------------------------------------------
+1. Siswa membuka web dan login dengan username "arya" / password "123"
+2. Di halaman utama, siswa melihat katalog produk koperasi
+3. Siswa mencari "Baju Seragam" melalui kolom pencarian atau memilih
+   filter kategori "Seragam"
+4. Siswa klik tombol "Tambah", memilih ukuran (S/M/L/XL), mengatur
+   jumlah di bottom sheet, lalu klik "Masukkan Keranjang" atau
+   "Beli Sekarang"
+5. Siswa membuka keranjang, mengecek pesanan (termasuk ukuran yang
+   dipilih), lalu klik "Lanjut Pembayaran"
+6. Siswa mengisi kelas, melihat rincian & total tagihan, lalu klik
+   "Konfirmasi & Bayar"
+7. Otomatis terbuka WhatsApp dengan pesan rincian pesanan (termasuk
+   ukuran) ke nomor koperasi sekolah
+
+Penggunaan 2: Siswa Mengecek Riwayat Pembelian
+------------------------------------------------------
+1. Siswa login ke aplikasi E-Koperasi
+2. Setelah sebelumnya melakukan beberapa transaksi, siswa klik menu
+   "Riwayat" di navigasi
+3. Modal riwayat pembelian muncul menampilkan semua transaksi sebelumnya
+4. Siswa bisa melihat nomor invoice, tanggal, item yang dibeli beserta
+   ukurannya, dan total pembayaran dari setiap transaksi
+
+
+======================================================
+3. TEKNOLOGI YANG DIGUNAKAN
+======================================================
+
+No | Teknologi               | Keterangan
+---|-------------------------|--------------------------------------------------
+1  | HTML5                   | Struktur halaman (login.html, index.html) dengan
+   |                         | elemen semantik (<header>, <main>, <footer>,
+   |                         | <section>, <article>, <nav>)
+   |                         |
+2  | CSS3                    | Styling tampilan (style.css) - menggunakan CSS
+   |                         | Variables, Flexbox, Grid, responsive design,
+   |                         | animasi, glassmorphism
+   |                         |
+3  | JavaScript (Vanilla)    | Logika aplikasi (script.js) - DOM Manipulation,
+   |                         | Event Handling, LocalStorage untuk sesi login,
+   |                         | state management untuk keranjang & riwayat
+   |                         |
+4  | Google Fonts (Inter)    | Font modern dari Google Fonts untuk tipografi
+   |                         |
+5  | WhatsApp API (wa.me)    | Integrasi pembayaran via redirect ke WhatsApp
+   |                         | dengan pesan otomatis
+   |                         |
+6  | LocalStorage            | Menyimpan sesi login pengguna di browser
+
+
+======================================================
+4. TABEL PENGUJIAN
+======================================================
+
+No | Fitur                | Skenario Pengujian                                    | Hasil yang Diharapkan
+---|----------------------|-------------------------------------------------------|---------------------------------------------
+1  | Login                | Memasukkan username "arya" dan password "123",        | Login berhasil, pengguna diarahkan ke
+   |                      | lalu klik tombol "Masuk"                              | halaman utama (index.html) dan data sesi
+   |                      |                                                       | tersimpan di LocalStorage
+   |                      |                                                       |
+2  | Login (Gagal)        | Memasukkan username atau password yang salah,         | Muncul pesan error berwarna merah:
+   |                      | lalu klik tombol "Masuk"                              | "Username atau password salah!" dan
+   |                      |                                                       | pengguna tetap di halaman login
+   |                      |                                                       |
+3  | Proteksi Halaman     | Mengakses index.html secara langsung tanpa login      | Pengguna otomatis di-redirect ke halaman
+   |                      | (tanpa data di LocalStorage)                          | login.html
+   |                      |                                                       |
+4  | Katalog Produk       | Membuka halaman utama setelah login                   | Halaman menampilkan grid katalog berisi
+   |                      |                                                       | 8 produk koperasi (Jas Almamater, Baju
+   |                      |                                                       | Batik, Dasi Sekolah, Baju Jurusan,
+   |                      |                                                       | Seragam Olahraga, Baju Pramuka, Baju
+   |                      |                                                       | Seragam, Topi Sekolah) dengan gambar,
+   |                      |                                                       | nama, deskripsi, dan harga
+   |                      |                                                       |
+5  | Pencarian Produk     | Mengetik kata "batik" di kolom pencarian               | Katalog hanya menampilkan produk yang
+   |                      |                                                       | mengandung kata "batik" pada namanya
+   |                      |                                                       | (Baju Batik)
+   |                      |                                                       |
+6  | Filter Kategori      | Klik tombol filter "Pramuka"                          | Katalog hanya menampilkan produk
+   |                      |                                                       | berkategori pramuka (Baju Pramuka)
+   |                      |                                                       |
+7  | Pilih Ukuran         | Klik tombol "Tambah" pada produk, lalu klik           | Tombol ukuran yang dipilih berubah warna
+   |                      | ukuran "L" di bottom sheet                            | menjadi biru (aktif), ukuran sebelumnya
+   |                      |                                                       | kembali ke default. Ukuran default
+   |                      |                                                       | adalah "M"
+   |                      |                                                       |
+8  | Tambah ke Keranjang  | Klik tombol "Tambah" pada produk, pilih ukuran        | Produk masuk ke keranjang dengan ukuran
+   | dengan Ukuran        | "XL", atur jumlah menjadi 2, lalu klik                | XL dan qty 2, badge keranjang menampilkan
+   |                      | "Masukkan Keranjang"                                  | angka "2", dan muncul notifikasi toast
+   |                      |                                                       | "Baju Seragam (XL) ditambahkan"
+   |                      |                                                       |
+9  | Produk Sama Beda     | Menambah produk yang sama dengan ukuran berbeda       | Kedua item tampil terpisah di keranjang
+   | Ukuran               | (misal Baju Seragam ukuran M dan Baju Seragam         | (1 item ukuran M, 1 item ukuran L),
+   |                      | ukuran L)                                             | masing-masing dengan qty-nya sendiri
+   |                      |                                                       |
+10 | Lihat Keranjang      | Klik ikon keranjang di header                         | Sidebar keranjang terbuka menampilkan
+   |                      |                                                       | daftar produk beserta ukuran, jumlah,
+   |                      |                                                       | harga per item, dan total keseluruhan
+   |                      |                                                       |
+11 | Hapus dari Keranjang | Klik tombol "Hapus" pada salah satu item di           | Item terhapus dari daftar keranjang,
+   |                      | keranjang                                             | badge keranjang dan total harga
+   |                      |                                                       | diperbarui
+   |                      |                                                       |
+12 | Beli Sekarang        | Klik tombol "Tambah" pada produk, pilih ukuran,       | Produk masuk ke keranjang dan modal
+   |                      | lalu klik "Beli Sekarang"                             | checkout langsung terbuka menampilkan
+   |                      |                                                       | rincian pesanan termasuk ukuran
+   |                      |                                                       |
+13 | Checkout & Pembayaran| Mengisi kelas di form checkout, lalu klik             | Nomor invoice otomatis ter-generate,
+   |                      | "Konfirmasi & Bayar"                                  | transaksi tersimpan di riwayat, keranjang
+   |                      |                                                       | dikosongkan, muncul toast "Pembayaran
+   |                      |                                                       | berhasil", dan WhatsApp terbuka dengan
+   |                      |                                                       | pesan rincian pesanan (termasuk ukuran)
+   |                      |                                                       | ke nomor koperasi
+   |                      |                                                       |
+14 | Riwayat Pembelian    | Klik menu "Riwayat" di navigasi setelah melakukan     | Modal riwayat terbuka menampilkan daftar
+   |                      | minimal 1 transaksi                                   | transaksi dengan nomor invoice, tanggal,
+   |                      |                                                       | daftar item beserta ukuran, dan total
+   |                      |                                                       |
+15 | Riwayat Kosong       | Klik menu "Riwayat" tanpa pernah melakukan            | Modal riwayat terbuka dengan pesan
+   |                      | transaksi                                             | "Belum ada riwayat pembelian, bro."
+   |                      |                                                       |
+16 | Profil Pengguna      | Klik ikon profil (user) di header                     | Modal profil muncul menampilkan inisial
+   |                      |                                                       | nama ("A"), nama pengguna ("Arya"), dan
+   |                      |                                                       | username ("arya")
+   |                      |                                                       |
+17 | Logout               | Klik tombol "Keluar (Log Out)" di modal profil        | Sesi login dihapus dari LocalStorage dan
+   |                      |                                                       | pengguna di-redirect ke halaman login.html
+   |                      |                                                       |
+18 | Responsive /         | Membuka web di layar kecil (mobile), lalu klik        | Navigasi utama (Beranda, Katalog, Riwayat)
+   | Mobile Menu          | tombol hamburger menu                                 | muncul/tersembunyi dengan toggle
+   |                      |                                                       |
+19 | Quick Add Produk     | Di bottom sheet produk, klik "Tambah (+1)" pada       | Produk lain tersebut masuk ke keranjang
+   | Lain                 | produk rekomendasi lain                               | dengan ukuran default (M), qty 1, dan
+   |                      |                                                       | muncul notifikasi toast
+
+
+======================================================
+CATATAN
+======================================================
+- Semua data produk dan transaksi dikelola secara client-side menggunakan
+  JavaScript (tanpa backend/database).
+- Sesi login disimpan di LocalStorage browser.
+- Riwayat pembelian hanya tersimpan selama sesi halaman aktif (hilang
+  saat refresh).
+- Ukuran yang tersedia: S, M, L, XL. Default ukuran saat membuka
+  bottom sheet adalah M.
+- Produk yang sama dengan ukuran berbeda akan disimpan sebagai item
+  terpisah di keranjang.

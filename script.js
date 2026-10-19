@@ -1,4 +1,3 @@
-
 // === AUTHENTICATION LOGIC ===
 const currentUser = JSON.parse(localStorage.getItem('koperasi_user'));
 const isLoginPage = document.getElementById("login-form") !== null;
@@ -14,16 +13,16 @@ if (isLoginPage) {
     // --- HALAMAN LOGIN ---
     document.getElementById('login-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const userVal = document.getElementById('login-username').value;
+        const userVal = document.getElementById('login-username').value.trim();
         const passVal = document.getElementById('login-password').value;
         const errorEl = document.getElementById('login-error');
         
-        // Aturan: Username = arya, Password = 123
-        if (userVal === 'arya' && passVal === '123') {
+        // Aturan: Username = Arya / arya, Password = 123
+        if (userVal.toLowerCase() === 'arya' && passVal === '123') {
             errorEl.style.display = 'none';
             // Simpan sesi login
             localStorage.setItem('koperasi_user', JSON.stringify({ 
-                username: 'arya',
+                username: 'Arya',
                 name: 'Arya',
                 class: 'Siswa / Admin Koperasi' 
             }));
@@ -80,6 +79,7 @@ if (isLoginPage) {
     let currentSearch = "";
     let selectedProduct = null;
     let currentQty = 1;
+    let currentSize = "M";
 
     /**
      * DOM Elements
@@ -136,8 +136,16 @@ if (isLoginPage) {
     window.openBottomSheet = (id) => {
         selectedProduct = products.find(p => p.id === id);
         currentQty = 1;
+        currentSize = "M";
         renderSheetContent();
         actionSheetOverlay.classList.add("active");
+    };
+
+    window.selectSize = (size) => {
+        currentSize = size;
+        document.querySelectorAll(".size-btn").forEach(btn => {
+            btn.classList.toggle("active", btn.textContent === size);
+        });
     };
 
     const renderSheetContent = () => {
@@ -160,6 +168,13 @@ if (isLoginPage) {
                 </div>
             </div>
             
+            <label style="font-size:13px; color:var(--text-secondary); margin-bottom:8px; display:block;">Pilih Ukuran</label>
+            <div class="size-options">
+                ${['S', 'M', 'L', 'XL'].map(size => `
+                    <button type="button" class="size-btn ${currentSize === size ? 'active' : ''}" onclick="selectSize('${size}')">${size}</button>
+                `).join('')}
+            </div>
+
             <label style="font-size:13px; color:var(--text-secondary); margin-bottom:8px; display:block;">Atur Jumlah</label>
             <div class="qty-control">
                 <button class="qty-btn" onclick="updateQty(-1)">-</button>
@@ -189,12 +204,13 @@ if (isLoginPage) {
 
     window.quickAdd = (id) => {
         const p = products.find(prod => prod.id === id);
-        const existing = cartItems.find(item => item.id === id);
+        const defaultSize = "M";
+        const existing = cartItems.find(item => item.id === id && item.size === defaultSize);
         
         if (existing) {
             existing.qty += 1;
         } else {
-            cartItems.push({ ...p, qty: 1 });
+            cartItems.push({ ...p, qty: 1, size: defaultSize });
         }
         updateCartBadge();
         showToast(`✓ ${p.title} masuk keranjang`);
@@ -204,11 +220,11 @@ if (isLoginPage) {
      * 3. Cart Logic
      */
     window.addToCart = (isBuyNow) => {
-        const existingItem = cartItems.find(item => item.id === selectedProduct.id);
+        const existingItem = cartItems.find(item => item.id === selectedProduct.id && item.size === currentSize);
         if (existingItem) {
             existingItem.qty += currentQty;
         } else {
-            cartItems.push({ ...selectedProduct, qty: currentQty });
+            cartItems.push({ ...selectedProduct, qty: currentQty, size: currentSize });
         }
         
         updateCartBadge();
@@ -246,7 +262,7 @@ if (isLoginPage) {
         document.getElementById("btn-checkout-cart").disabled = false;
         let total = 0;
 
-        cartItems.forEach(item => {
+        cartItems.forEach((item, index) => {
             total += (item.price * item.qty);
             container.innerHTML += `
                 <div class="cart-item">
@@ -254,17 +270,17 @@ if (isLoginPage) {
                     <div class="cart-item-info">
                         <h5>${item.title}</h5>
                         <div class="cart-item-price">${formatRupiah(item.price)}</div>
-                        <div class="cart-item-qty">Jumlah: ${item.qty}</div>
+                        <div class="cart-item-qty">Ukuran: ${item.size} | Jumlah: ${item.qty}</div>
                     </div>
-                    <button class="btn-remove" onclick="removeFromCart(${item.id})">Hapus</button>
+                    <button class="btn-remove" onclick="removeFromCart(${index})">Hapus</button>
                 </div>
             `;
         });
         totalEl.textContent = formatRupiah(total);
     };
 
-    window.removeFromCart = (id) => {
-        cartItems = cartItems.filter(item => item.id !== id);
+    window.removeFromCart = (index) => {
+        cartItems.splice(index, 1);
         updateCartBadge();
         renderCartSidebar();
     };
@@ -289,7 +305,7 @@ if (isLoginPage) {
             checkoutItemsList.innerHTML += `
                 <div class="checkout-item-row">
                     <div>
-                        <span class="checkout-item-title">${item.title}</span> 
+                        <span class="checkout-item-title">${item.title} (${item.size})</span> 
                         <span class="checkout-item-qty">x${item.qty}</span>
                     </div>
                     <div class="checkout-item-price">${formatRupiah(itemTotal)}</div>
@@ -310,7 +326,7 @@ if (isLoginPage) {
     const createWhatsAppPaymentMessage = (transaction) => {
         const detailProduk = transaction.items.map((item, index) => {
             const subtotal = item.price * item.qty;
-            return `${index + 1}. ${item.title} x${item.qty} - ${formatRupiah(subtotal)}`;
+            return `${index + 1}. ${item.title} (Ukuran: ${item.size}) x${item.qty} - ${formatRupiah(subtotal)}`;
         }).join("\n");
 
         return `Halo Koperasi Sekolah, saya ingin melakukan pembayaran/pemesanan dengan rincian berikut:
@@ -379,7 +395,7 @@ Mohon dikonfirmasi untuk pesanan saya. Terima kasih.`;
             container.innerHTML = `<p style="text-align:center; color:var(--text-secondary);">Belum ada riwayat pembelian, bro.</p>`;
         } else {
             purchaseHistory.forEach(tx => {
-                let itemsHTML = tx.items.map(item => `<li>${item.title} (x${item.qty})</li>`).join('');
+                let itemsHTML = tx.items.map(item => `<li>${item.title} - Ukuran ${item.size} (x${item.qty})</li>`).join('');
                 container.innerHTML += `
                     <div class="history-card">
                         <div class="history-header">
