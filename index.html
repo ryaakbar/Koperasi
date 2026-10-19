@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Koperasi Sekolah | Sistem Koperasi Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+ -->
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <img src="logo.jpg" alt="Logo" class="logo-icon" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: white;">
+                <div class="logo-text">
+                    <h1>E-KOPERASI</h1>
+                    <span>Sistem Digital Sekolah</span>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn" aria-label="Menu" id="mobile-menu-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <a href="#" class="active">Beranda</a>
+                <a href="#katalog">Katalog</a>
+                <a href="#" id="nav-history">Riwayat</a>
+            </nav>
+
+            <div class="cart-area" style="display: flex; gap: 8px;">
+                <!-- Tombol Profile Baru -->
+                <button class="cart-btn" id="open-profile-btn" aria-label="Profil Saya">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </button>
+                <button class="cart-btn" id="open-cart-btn" aria-label="Keranjang Belanja">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h2>Kebutuhan Sekolah,<br>Kini Lebih Mudah.</h2>
+                    <p>Temukan seragam, atribut, dan perlengkapan sekolah dengan mudah melalui sistem koperasi digital sekolah yang resmi dan terpercaya.</p>
+                    <a href="#katalog" class="btn btn-primary">Lihat Katalog</a>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-illustration">
+                        <img src="sekolah.jpg" alt="Sekolah" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top:0; left:0; z-index: 1;">
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, transparent 50%); z-index: 2;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATALOG SECTION -->
+        <section id="katalog" class="catalog-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3>Katalog Produk</h3>
+                    <p>Berbagai kebutuhan perlengkapan sekolah tersedia di koperasi.</p>
+                </div>
+
+                <!-- SEARCH & FILTER -->
+                <div class="controls-area">
+                    <div class="search-box">
+                        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="search-input" placeholder="Cari produk (mis. Seragam)...">
+                    </div>
+                    
+                    <div class="category-filters" id="category-filters">
+                        <button class="filter-btn active" data-filter="semua">Semua</button>
+                        <button class="filter-btn" data-filter="seragam">Seragam</button>
+                        <button class="filter-btn" data-filter="pramuka">Pramuka</button>
+                        <button class="filter-btn" data-filter="atribut">Atribut</button>
+                    </div>
+                </div>
+
+                <!-- PRODUCT GRID -->
+                <div class="product-grid" id="product-grid">
+                    <!-- Produk dirender via JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="tentang" class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <h4>E-KOPERASI SEKOLAH</h4>
+                <p>Sistem Koperasi Digital Sekolah</p>
+            </div>
+            <div class="footer-contact">
+                <p><strong>Alamat:</strong> Jl. Pendidikan No. 1, Kota Pelajar</p>
+                <p><strong>Email:</strong> info@koperasisekolah.edu</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 E-Koperasi Sekolah. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- OVERLAYS & MODALS -->
+
+    <!-- 1. Bottom Sheet Modal -->
+    <div class="overlay" id="action-sheet-overlay">
+        <div class="bottom-sheet" id="action-sheet">
+            <div class="sheet-handle"></div>
+            <button class="close-btn" id="close-sheet-btn">&times;</button>
+            <div class="sheet-content" id="sheet-content">
+                <!-- Diisi via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Cart Sidebar -->
+    <div class="overlay" id="cart-sidebar-overlay">
+        <div class="cart-sidebar" id="cart-sidebar">
+            <div class="sidebar-header">
+                <h3>Keranjang Belanja</h3>
+                <button class="close-btn" id="close-cart-btn">&times;</button>
+            </div>
+            <div class="sidebar-body" id="cart-items-container">
+                <!-- Item Keranjang via JS -->
+            </div>
+            <div class="sidebar-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <strong id="cart-total-price">Rp0</strong>
+                </div>
+                <button class="btn btn-primary w-100" id="btn-checkout-cart">Lanjut Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Checkout Modal -->
+    <div class="overlay" id="checkout-overlay">
+        <div class="checkout-modal">
+            <div class="checkout-header">
+                <h3>Pembayaran Koperasi</h3>
+                <button class="close-btn" id="close-checkout-btn">&times;</button>
+            </div>
+            <div class="checkout-body">
+                <div class="form-group">
+                    <label>Nama Lengkap Siswa</label>
+                    <input type="text" id="checkout-name" placeholder="Masukkan nama siswa" class="form-control" readonly style="background-color:#f1f5f9;">
+                </div>
+                <div class="form-group">
+                    <label>Kelas</label>
+                    <input type="text" id="checkout-class" placeholder="Contoh: X RPL 1" class="form-control">
+                </div>
+                
+                <!-- RINCIAN PESANAN -->
+                <div class="form-group" style="margin-top: 24px;">
+                    <label>Rincian Pesanan</label>
+                    <div class="checkout-items" id="checkout-items-list">
+                        <!-- List produk di render via JS -->
+                    </div>
+                </div>
+
+                <div class="checkout-summary">
+                    <span>Total Tagihan:</span>
+                    <div style="text-align: right;">
+                        <div id="checkout-total-qty" style="font-size:12px; color:var(--text-secondary); margin-bottom: 4px;">Total: 0 Produk</div>
+                        <strong id="checkout-total-price">Rp0</strong>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100" id="btn-confirm-payment">Konfirmasi & Bayar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Riwayat Pembelian Modal -->
+    <div class="overlay" id="history-overlay">
+        <div class="checkout-modal">
+            <div class="checkout-header">
+                <h3>Riwayat Pembelian</h3>
+                <button class="close-btn" id="close-history-btn">&times;</button>
+            </div>
+            <div class="checkout-body history-body" id="history-container" style="max-height: 60vh; overflow-y: auto;">
+                <!-- Diisi via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Profile Modal Baru -->
+    <div class="overlay" id="profile-overlay">
+        <div class="checkout-modal" style="max-width: 350px;">
+            <div class="checkout-header">
+                <h3>Profil Saya</h3>
+                <button class="close-btn" id="close-profile-btn">&times;</button>
+            </div>
+            <div class="checkout-body" style="text-align: center; padding: 30px 24px;">
+                <div style="width: 80px; height: 80px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 16px;">
+                    <span id="profile-initial">A</span>
+                </div>
+                <h4 id="profile-name" style="font-size: 18px; color: var(--primary); margin-bottom: 4px;">Nama Siswa</h4>
+                <p id="profile-class" style="color: var(--text-secondary); margin-bottom: 24px;">Username</p>
+                <button class="btn btn-outline w-100" id="btn-logout" style="border-color: #EF4444; color: #EF4444;">Keluar (Log Out)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
